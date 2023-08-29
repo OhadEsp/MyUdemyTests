@@ -23,6 +23,8 @@ namespace WpfLoginDemo
         public MainWindow()
         {
             InitializeComponent();
+
+            MainContent.Content = new LoginView();
         }
     }
 }
