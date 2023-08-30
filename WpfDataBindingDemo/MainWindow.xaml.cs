@@ -37,7 +37,9 @@ namespace WpfDataBindingDemo
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Hello World");
+            // Since we implemented one-way binding, this event will just display person's initial data and not data updated from UI.
+            string personData = $"{person.Name} is {person.Age} years old.";
+            MessageBox.Show(personData);
         }
     }
 }
