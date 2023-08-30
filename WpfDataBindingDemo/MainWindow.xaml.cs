@@ -20,9 +20,19 @@ namespace WpfDataBindingDemo
     /// </summary>
     public partial class MainWindow : Window
     {
+        // In one way binding we bind from source to our target. The target are the UI elements.
+        Person person = new Person
+        {
+            Name = "Ohad",
+            Age = 36
+        };
+
         public MainWindow()
         {
             InitializeComponent();
+
+            // In WPF it's the underlying data structure that provides the binding information between the UI elements and the data they display.
+            this.DataContext = person;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
