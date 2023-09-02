@@ -27,11 +27,11 @@
 
         <Label Grid.Row="1" Grid.Column="1" Margin="2" Content="Name"/>
 
-        <TextBox Text="{Binding Path=Name, Mode=OneWayToSource}" Grid.Row="1" Grid.Column="2" Margin="2" />
+        <TextBox Text="{Binding Path=Name, Mode=OneTime}" Grid.Row="1" Grid.Column="2" Margin="2" />
 
         <Label Content="Age" Margin="2" Grid.Column="1" Grid.Row="2" />
 
-        <TextBox Text="{Binding Path=Age, Mode=OneWayToSource}" Grid.Column="2" Grid.Row="2" Margin="2"/>
+        <TextBox Text="{Binding Path=Age, Mode=OneTime}" Grid.Column="2" Grid.Row="2" Margin="2"/>
 
         <Button Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2"  Content="Info" Click="Button_Click" />
     </Grid>
