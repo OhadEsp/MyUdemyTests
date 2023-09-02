@@ -35,5 +35,15 @@ namespace WpfDataBindingDemo
 
             ListBoxPeople.ItemsSource = People;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedItems = ListBoxPeople.SelectedItems;
+            foreach (var item in selectedItems)
+            {
+                var person = (Person)item;
+                MessageBox.Show(person.Name);
+            }
+        }
     }
 }
