@@ -31,15 +31,13 @@ namespace WpfDataBindingDemo
         {
             InitializeComponent();
 
-            // In WPF it's the underlying data structure that provides the binding information between the UI elements and the data they display.
-            this.DataContext = person;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // Since we implemented one-way binding, this event will just display person's initial data and not data updated from UI.
-            string personData = $"{person.Name} is {person.Age} years old.";
-            MessageBox.Show(personData);
+            ListBoxNames.ItemsSource = new List<string>()
+            {
+                "Jannick",
+                "Peter",
+                "Maria",
+                "Marc"
+            };
         }
     }
 }
