@@ -21,6 +21,15 @@
 
         </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="ListBoxPeople" Grid.Column="1" Grid.Row="1" />
+        <ListBox x:Name="ListBoxPeople" Grid.Column="1" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name, StringFormat='Name: {0}'}" />
+                        <TextBlock Text="{Binding Age, StringFormat='Age: {0}'}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>
