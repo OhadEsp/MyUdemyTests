@@ -20,24 +20,20 @@ namespace WpfDataBindingDemo
     /// </summary>
     public partial class MainWindow : Window
     {
-        // In one way binding we bind from source to our target. The target are the UI elements.
-        Person person = new Person
+        public List<Person> People = new List<Person>
         {
-            Name = "Ohad",
-            Age = 36
+            new Person{Name = "Jannic", Age = 30},
+            new Person{Name = "Marc", Age = 20},
+            new Person{Name = "Maria", Age = 40},
+            new Person{Name = "Scott", Age = 35},
+            new Person{Name = "Lucas", Age = 27}
         };
 
         public MainWindow()
         {
             InitializeComponent();
 
-            ListBoxNames.ItemsSource = new List<string>()
-            {
-                "Jannick",
-                "Peter",
-                "Maria",
-                "Marc"
-            };
+            ListBoxNames.ItemsSource = People;
         }
     }
 }
