@@ -21,6 +21,6 @@
 
         </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="ListBoxNames" Grid.Column="1" Grid.Row="1" />
+        <ListBox x:Name="ListBoxPeople" Grid.Column="1" Grid.Row="1" />
     </Grid>
 </Window>
