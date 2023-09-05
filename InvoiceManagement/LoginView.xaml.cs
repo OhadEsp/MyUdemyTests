@@ -24,5 +24,27 @@ namespace InvoiceManagement
         {
             InitializeComponent();
         }
+
+        private void OnLoginBtnClicked(object sender, RoutedEventArgs e)
+        {
+            string passwordEntered = PasswordBox.Password;
+            
+            // In order to make it work - need to add the environment variable to the system variables and restart computer.
+            string? envPw = Environment.GetEnvironmentVariable("InvoiceManagement");
+
+            if (envPw != null)
+            {
+                MessageBox.Show(passwordEntered == envPw ? "Entered correct password." : "Entered wrong password.");
+            }
+            else
+            {
+                MessageBox.Show("Environment variable was not found.");
+            }
+        }
+
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            LoginButton.IsEnabled = !string.IsNullOrEmpty(PasswordBox.Password);
+        }
     }
 }
