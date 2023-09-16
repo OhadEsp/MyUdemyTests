@@ -150,7 +150,7 @@ namespace CurrencyConverter_Static
         {
             //Regular Expression is used to add regex.
             // Add Library using System.Text.RegularExpressions;
-            Regex regex = new Regex("^[0-9]+");
+            Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
         #endregion
