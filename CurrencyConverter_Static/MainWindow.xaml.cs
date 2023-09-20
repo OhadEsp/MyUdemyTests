@@ -119,7 +119,7 @@ namespace CurrencyConverter_Static
                     {
                         MyCon();
                         DataTable dt = new DataTable();
-                        cmd = new SqlCommand("INSERT INTO Currency_Master(Amount, CurrencyName) VALUES(@Amount, @CurrencyName)", con);
+                        cmd = new SqlCommand("INSERT INTO CurrencyMaster(Amount, CurrencyName) VALUES(@Amount, @CurrencyName)", con);
                         cmd.CommandType = CommandType.Text;
                         cmd.Parameters.AddWithValue("@Amount", txtAmount.Text);
                         cmd.Parameters.AddWithValue("@CurrencyName", txtCurrencyName.Text);
@@ -136,7 +136,7 @@ namespace CurrencyConverter_Static
                     {
                         MyCon();
                         //Insert query to Save data in the table
-                        cmd = new SqlCommand("INSERT INTO Currency_Master(Amount, CurrencyName) VALUES(@Amount, @CurrencyName)", con);
+                        cmd = new SqlCommand("INSERT INTO CurrencyMaster(Amount, CurrencyName) VALUES(@Amount, @CurrencyName)", con);
                         cmd.CommandType = CommandType.Text;
                         cmd.Parameters.AddWithValue("@Amount", txtAmount.Text);
                         cmd.Parameters.AddWithValue("@CurrencyName", txtCurrencyName.Text);
@@ -284,7 +284,7 @@ namespace CurrencyConverter_Static
             DataTable dt = new DataTable();
 
             //Write SQL query to get the data from database table. Query written in double quotes and after comma provide connection.
-            cmd = new SqlCommand("SELECT * FROM Currency_Master", con);
+            cmd = new SqlCommand("SELECT * FROM CurrencyMaster", con);
 
             //CommandType define which type of command will execute like Text, StoredProcedure, TableDirect.
             cmd.CommandType = CommandType.Text;
