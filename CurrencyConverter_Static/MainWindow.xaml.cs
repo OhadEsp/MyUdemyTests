@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System;
 
 namespace CurrencyConverter_Static
 {
@@ -95,6 +96,63 @@ namespace CurrencyConverter_Static
         #endregion
 
         #region Button Click Event
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (txtAmount.Text == null || txtAmount.Text.Trim() == "")
+                {
+                    MessageBox.Show("Please enter amount", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    txtAmount.Focus();
+                    return;
+                }
+                if (txtCurrencyName.Text == null || txtCurrencyName.Text.Trim() == "")
+                {
+                    MessageBox.Show("Please enter currency name", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    txtCurrencyName.Focus();
+                    return;
+                }
+                if (currencyId > 0) // Code for update button. Here check CurrencyId greater than zero then it is go for update.
+                {
+                    if (MessageBox.Show("Are you sure you want to Save ?", "Information", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        MyCon();
+                        DataTable dt = new DataTable();
+                        cmd = new SqlCommand("INSERT INTO Currency_Master(Amount, CurrencyName) VALUES(@Amount, @CurrencyName)", con);
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@Amount", txtAmount.Text);
+                        cmd.Parameters.AddWithValue("@CurrencyName", txtCurrencyName.Text);
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+
+                        MessageBox.Show("Data saved successfully", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                // Code to Save
+                else
+                {
+                    if (MessageBox.Show("Are you sure you want to save ?", "Information", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        MyCon();
+                        //Insert query to Save data in the table
+                        cmd = new SqlCommand("INSERT INTO Currency_Master(Amount, CurrencyName) VALUES(@Amount, @CurrencyName)", con);
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@Amount", txtAmount.Text);
+                        cmd.Parameters.AddWithValue("@CurrencyName", txtCurrencyName.Text);
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+
+                        MessageBox.Show("Data saved successfully", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                ClearMaster();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         //Convert the button click event
         private void Convert_Click(object sender, RoutedEventArgs e)
@@ -185,11 +243,6 @@ namespace CurrencyConverter_Static
         }
         #endregion
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
 
@@ -218,6 +271,59 @@ namespace CurrencyConverter_Static
         private void dgvCurrency_SelectedCellsChanged(object sender, System.Windows.Controls.SelectedCellsChangedEventArgs e)
         {
 
+        }
+
+        //Bind data to the DataGrid view.
+        public void GetData()
+        {
+
+            //Method is used for connect with database and open database connection
+            MyCon();
+
+            //Create Datatable object
+            DataTable dt = new DataTable();
+
+            //Write SQL query to get the data from database table. Query written in double quotes and after comma provide connection.
+            cmd = new SqlCommand("SELECT * FROM Currency_Master", con);
+
+            //CommandType define which type of command will execute like Text, StoredProcedure, TableDirect.
+            cmd.CommandType = CommandType.Text;
+
+            //It is accept a parameter that contains the command text of the object's SelectCommand property.
+            da = new SqlDataAdapter(cmd);
+
+            //The DataAdapter serves as a bridge between a DataSet and a data source for retrieving and saving data. 
+            //The fill operation then adds the rows to destination DataTable objects in the DataSet
+            da.Fill(dt);
+
+            //dt is not null and rows count greater than 0
+            if (dt != null && dt.Rows.Count > 0)
+                //Assign DataTable data to dgvCurrency using item source property.
+                dgvCurrency.ItemsSource = dt.DefaultView;
+            else
+                dgvCurrency.ItemsSource = null;
+
+            //Database connection close
+            con.Close();
+        }
+
+        //Method is used to clear all the input which user entered in currency master tab
+        private void ClearMaster()
+        {
+            try
+            {
+                txtAmount.Text = string.Empty;
+                txtCurrencyName.Text = string.Empty;
+                btnSave.Content = "Save";
+                GetData();
+                currencyId = 0;
+                BindCurrency();
+                txtAmount.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
