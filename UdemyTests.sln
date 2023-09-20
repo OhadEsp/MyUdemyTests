@@ -17,9 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyConverter_Static", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinqDemo", "LinqDemo\LinqDemo.csproj", "{BF88F6F3-7BC7-4AA2-9508-B6FAD7966B3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorTest", "Calculator\CalculatorTest.csproj", "{4A8559C8-CBC4-41E8-B09B-4F681EBBBD82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorTest", "Calculator\CalculatorTest.csproj", "{4A8559C8-CBC4-41E8-B09B-4F681EBBBD82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{E88074EE-E335-4325-80A7-76D01D81B72E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{E88074EE-E335-4325-80A7-76D01D81B72E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{123407BF-82DA-4A43-8734-3B5B619D8B65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +141,18 @@ Global
 		{E88074EE-E335-4325-80A7-76D01D81B72E}.Release|x64.Build.0 = Release|Any CPU
 		{E88074EE-E335-4325-80A7-76D01D81B72E}.Release|x86.ActiveCfg = Release|Any CPU
 		{E88074EE-E335-4325-80A7-76D01D81B72E}.Release|x86.Build.0 = Release|Any CPU
+		{123407BF-82DA-4A43-8734-3B5B619D8B65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{123407BF-82DA-4A43-8734-3B5B619D8B65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{123407BF-82DA-4A43-8734-3B5B619D8B65}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{123407BF-82DA-4A43-8734-3B5B619D8B65}.Debug|x64.Build.0 = Debug|Any CPU
+		{123407BF-82DA-4A43-8734-3B5B619D8B65}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{123407BF-82DA-4A43-8734-3B5B619D8B65}.Debug|x86.Build.0 = Debug|Any CPU
+		{123407BF-82DA-4A43-8734-3B5B619D8B65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{123407BF-82DA-4A43-8734-3B5B619D8B65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{123407BF-82DA-4A43-8734-3B5B619D8B65}.Release|x64.ActiveCfg = Release|Any CPU
+		{123407BF-82DA-4A43-8734-3B5B619D8B65}.Release|x64.Build.0 = Release|Any CPU
+		{123407BF-82DA-4A43-8734-3B5B619D8B65}.Release|x86.ActiveCfg = Release|Any CPU
+		{123407BF-82DA-4A43-8734-3B5B619D8B65}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
