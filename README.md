@@ -1,6 +1,6 @@
 # MyUdemyTests
 
-Accorging to Udemy course:
+According to Udemy course:
 Learn C# Programming - WPF, Databases, Linq, Collections, Game Development with Unity. Unit Testing TDD
 By Denis Panjuta.
 
