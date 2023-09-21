@@ -19,11 +19,16 @@ namespace Web.Controllers
             _logger = logger;
         }
 
+        // 9. Now we can add implementation to this method (after implementing functionality using TDD).
         [HttpGet(Name = "Add/{left}/{right}")]
         public int Get(int left, int right)
         {
-            var calculator = new Calculator();
-            return calculator.Sum(left, right);
+            //throw new NotImplementedException();
+            //var calculator = new Calculator();
+            //return calculator.Sum(left, right);
+
+            // 9. implementation.
+            return new Calculator().Sum(left, right);
         }
     }
 }
