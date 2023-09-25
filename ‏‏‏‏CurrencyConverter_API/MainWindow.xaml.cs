@@ -6,21 +6,41 @@ using System.Text.RegularExpressions;
 
 //This library is used for DataTable
 using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System;
 
 namespace CurrencyConverter_Static
 {
 
+    //Root class is the main class. API return rates in the rates. It returns all currency name with value.
+    public class Root
+    {
+        //Get all record in rates and set in rate class as currency name wise
+        public Rate rates { get; set; }
+        public long timestamp;
+        public string license;
+    }
+
+    //Make sure API return value that name and where you want to store that name are the same. Like in API, get response INR, then set it with INR name.
+    public class Rate
+    {
+        public double INR { get; set; }
+        public double JPY { get; set; }
+        public double USD { get; set; }
+        public double NZD { get; set; }
+        public double EUR { get; set; }
+        public double CAD { get; set; }
+        public double ISK { get; set; }
+        public double PHP { get; set; }
+        public double DKK { get; set; }
+        public double CZK { get; set; }
+    }
+
     public partial class MainWindow : Window
     {
-        SqlConnection con = new SqlConnection(); // Create object for sqlConnection.
-        SqlCommand cmd = new SqlCommand(); // Create object for sqlCommand.
-        SqlDataAdapter da = new SqlDataAdapter(); // Create object for SqlDataAdapter.
-
-        private int currencyId = 0; // Declare currencyId with int DataType and Assign Value 0.
-        private double fromAmount = 0; // Declare fromAmount with double DataType and Assign Value 0.
-        private double toAmount = 0; // Declare toAmount with double DataType and assign Value 0.
+        Root val = new Root();
 
         public MainWindow()
         {
@@ -29,67 +49,87 @@ namespace CurrencyConverter_Static
             //ClearControls method is used to clear all control values
             ClearControls();
 
-            //BindCurrency is used to bind currency name with the value in the Combobox
-            BindCurrency();
+            ////BindCurrency is used to bind currency name with the value in the Combobox
+            //BindCurrency();
+            GetValue();
         }
 
-        public void MyCon()
+        public static async Task<Root> GetDataGetMethod<T>(string url)
         {
-            string conn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString; // Database Connection string.
-            con = new SqlConnection(conn);
-            con.Open(); // Connection Open.
+            var ss = new Root();
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.Timeout = TimeSpan.FromMinutes(1);
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        var ResponceString = await response.Content.ReadAsStringAsync();
+                        var ResponceObject = JsonConvert.DeserializeObject<Root>(ResponceString);
+
+                        //MessageBox.Show("Licencse: " + ResponceObject.license, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        return ResponceObject;
+                    }
+                    return ss;
+                }
+            }
+            catch
+            {
+                return ss;
+            }
         }
-        // CRUD
+
+        private async void GetValue()
+        {
+            val = await GetDataGetMethod<Root>("https://openexchangerates.org/api/latest.json?app_id=6b75a15010164525adffc83fa4fff20b");
+            BindCurrency();
+        }
 
         #region Bind Currency From and To Combobox
         private void BindCurrency()
 
         {
-            MyCon();
-            // Create an object for DataTable.
+            //Create a Datatable Object
             DataTable dt = new DataTable();
-            // Write query to get data from Currency_Master table.
-            cmd = new SqlCommand("select Id, CurrencyName from CurrencyMaster", con);
-            // CommandType define which type of command we use for write a query.
-            cmd.CommandType = CommandType.Text;
 
-            // It is accepting a parameter that contains the command text of the object's selectCommand property.
-            da = new SqlDataAdapter(cmd);
-            da.Fill(dt);
 
-            // Create an object for DataRow.
-            DataRow newRow = dt.NewRow();
-            // Assign a value to Id column.
-            newRow["Id"] = 0;
-            // Assign a value to CurrencyName column.
-            newRow["CurrencyName"] = "--SELECT--";
+            //Add display column in DataTable
+            dt.Columns.Add("Text");
 
-            // Insert a new row in dt with the data at a 0 position.
-            dt.Rows.InsertAt(newRow, 0);
+            //Add Value Column in DataTable
+            dt.Columns.Add("Rate");
 
-            // dt is not null and rows count greater than 0.
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                // Assign the datatable data to from currency combobox using ItemSource property.
-                cmbFromCurrency.ItemsSource = dt.DefaultView;
+            //Add rows in Datatable with text and value. set a value which are fetched from API
+            dt.Rows.Add("--SELECT--", 0);
+            dt.Rows.Add("INR", val.rates.INR);
+            dt.Rows.Add("USD", val.rates.USD);
+            dt.Rows.Add("NZD", val.rates.NZD);
+            dt.Rows.Add("JPY", val.rates.JPY);
+            dt.Rows.Add("EUR", val.rates.EUR);
+            dt.Rows.Add("CAD", val.rates.CAD);
+            dt.Rows.Add("ISK", val.rates.ISK);
+            dt.Rows.Add("PHP", val.rates.PHP);
+            dt.Rows.Add("DKK", val.rates.DKK);
+            dt.Rows.Add("CZK", val.rates.CZK);
 
-                // Assign the datatable data to to currency combobox using ItemSource property.
-                cmbToCurrency.ItemsSource= dt.DefaultView;
-            }
-            con.Close();
+            //Datatable data assigned from the currency combobox
+            cmbFromCurrency.ItemsSource = dt.DefaultView;
 
             //DisplayMemberPath property is used to display data in the combobox
-            cmbFromCurrency.DisplayMemberPath = "CurrencyName";
+            cmbFromCurrency.DisplayMemberPath = "Text";
 
             //SelectedValuePath property is used to set the value in the combobox
-            cmbFromCurrency.SelectedValuePath = "Id";
+            cmbFromCurrency.SelectedValuePath = "Rate";
 
             //SelectedIndex property is used to bind the combobox to its default selected item 
             cmbFromCurrency.SelectedIndex = 0;
 
             //All properties are set to To Currency combobox as it is in the From Currency combobox
-            cmbToCurrency.DisplayMemberPath = "CurrencyName";
-            cmbToCurrency.SelectedValuePath = "Id";
+            cmbToCurrency.ItemsSource = dt.DefaultView;
+            cmbToCurrency.DisplayMemberPath = "Text";
+            cmbToCurrency.SelectedValuePath = "Rate";
             cmbToCurrency.SelectedIndex = 0;
         }
         #endregion
@@ -147,7 +187,7 @@ namespace CurrencyConverter_Static
             {
                 //Calculation for currency converter is From Currency value multiply(*) 
                 //With the amount textbox value and then that total divided(/) with To Currency value
-                ConvertedValue = (double.Parse(cmbFromCurrency.SelectedValue.ToString()) * double.Parse(txtCurrency.Text)) / double.Parse(cmbToCurrency.SelectedValue.ToString());
+                ConvertedValue = (double.Parse(cmbToCurrency.SelectedValue.ToString()) * double.Parse(txtCurrency.Text)) / double.Parse(cmbFromCurrency.SelectedValue.ToString());
 
                 //Show the label converted currency and converted currency name.
                 lblCurrency.Content = cmbToCurrency.Text + " " + ConvertedValue.ToString("N3");
@@ -184,40 +224,5 @@ namespace CurrencyConverter_Static
             e.Handled = regex.IsMatch(e.Text);
         }
         #endregion
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void cmbFromCurrency_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void cmbToCurrency_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void cmbFromCurrency_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-
-        }
-
-        private void cmbToCurrency_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-
-        }
-
-        private void dgvCurrency_SelectedCellsChanged(object sender, System.Windows.Controls.SelectedCellsChangedEventArgs e)
-        {
-
-        }
     }
 }

@@ -22,7 +22,7 @@ namespace CalculatorTest
             // 3. The Sum function should return 4. So let's throw exception if it does not.
             if (result != 4)
             {
-                throw new Exception();
+                throw new Exception($"The Sum(2,2) was expected to be 4 but it's {result}.");
             }
 
             // 4. Ctrl R + T to run the test. It will fail.
