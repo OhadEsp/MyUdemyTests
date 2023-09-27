@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flight", "Flight\Flight.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Tests", "Domain.Tests\Domain.Tests.csproj", "{EA370D03-EB83-4B5D-B28C-B6FB812937BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightDomain", "FlightDomain\FlightDomain.csproj", "{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -265,6 +267,18 @@ Global
 		{EA370D03-EB83-4B5D-B28C-B6FB812937BD}.Release|x64.Build.0 = Release|Any CPU
 		{EA370D03-EB83-4B5D-B28C-B6FB812937BD}.Release|x86.ActiveCfg = Release|Any CPU
 		{EA370D03-EB83-4B5D-B28C-B6FB812937BD}.Release|x86.Build.0 = Release|Any CPU
+		{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}.Debug|x64.Build.0 = Debug|Any CPU
+		{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}.Debug|x86.Build.0 = Debug|Any CPU
+		{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}.Release|x64.ActiveCfg = Release|Any CPU
+		{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}.Release|x64.Build.0 = Release|Any CPU
+		{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}.Release|x86.ActiveCfg = Release|Any CPU
+		{4A693567-8FBB-4346-9CD0-AC5BC6A97C4E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
