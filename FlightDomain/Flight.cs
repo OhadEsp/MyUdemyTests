@@ -12,9 +12,7 @@
         public object? Book(string passengerEmail, int numberOfSeats)
         {
             if (numberOfSeats > RemainingNumberOfSeats)
-            {
                 return new OverBookingError();
-            }
 
             RemainingNumberOfSeats -= numberOfSeats;
             return null;
