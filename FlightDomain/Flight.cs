@@ -22,5 +22,10 @@
             bookingList.Add(new Booking(passengerEmail, numberOfSeats));
             return null;
         }
+
+        public void CancelBooking(string passengerEmail, int numberOfSeats)
+        {
+            RemainingNumberOfSeats += numberOfSeats;
+        }
     }
 }
