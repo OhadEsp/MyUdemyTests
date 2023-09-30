@@ -7,6 +7,8 @@
         //public List<Booking> BookingList { get; set; } = new List<Booking>();
         public int RemainingNumberOfSeats { get; set; }
 
+        public Guid Id { get; }
+
         public Flight(int seatCapacity)
         {
             RemainingNumberOfSeats = seatCapacity;
