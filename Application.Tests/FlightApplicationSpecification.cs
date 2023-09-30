@@ -43,11 +43,13 @@ namespace Application.Tests
                 );
         }
 
-        [Fact]
-        public void Cancels_booking()
+        [Theory]
+        [InlineData(3)]
+        [InlineData(10)]
+        public void Cancels_booking(int initialCapacity)
         {
             // Given
-            var flight = new Flight(3);
+            var flight = new Flight(initialCapacity);
             entities.Flights.Add(flight);
 
             bookingService.Book(new BookDto(flightId: flight.Id,
@@ -62,7 +64,7 @@ namespace Application.Tests
                     );
 
             // Then
-            bookingService.GetRemainingNumberOfSeatsFor(flight.Id).Should().Be(3);
+            bookingService.GetRemainingNumberOfSeatsFor(flight.Id).Should().Be(initialCapacity);
         }
     }
 }
