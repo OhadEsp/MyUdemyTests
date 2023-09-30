@@ -4,6 +4,7 @@ using System;
 using FluentAssertions;
 using Data;
 using FlightDomain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Tests
 {
@@ -13,7 +14,9 @@ namespace Application.Tests
         public void Books_flights()
         {
             // entities is like our database.
-            var entities = new Entities();
+            var entities = new Entities(new DbContextOptionsBuilder()
+                .UseInMemoryDatabase("Flights")
+                .Options);
 
             // We create a new flight and add it to our database.
             var flight = new Flight(3);
