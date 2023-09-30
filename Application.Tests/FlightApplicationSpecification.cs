@@ -27,7 +27,9 @@ namespace Application.Tests
         [Theory]
         [InlineData("m@m.com", 2)]
         [InlineData("a@a.com", 2)]
-        public void Books_flights(string passengerEmail, int numberOfSeats)
+        // Renamed by GWT pattern
+        //public void Given_a_flight_When_I_book_the_flight_Then_the_flight_should_contain_my_booking(string passengerEmail, int numberOfSeats)
+        public void Frees_up_seats_after_booking(string passengerEmail, int numberOfSeats)
         {
             // We create a new flight and add it to our database.
             var flight = new Flight(3);
