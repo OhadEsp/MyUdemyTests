@@ -5,6 +5,7 @@ using FluentAssertions;
 using Data;
 using FlightDomain;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Application.Tests
 {
@@ -39,30 +40,42 @@ namespace Application.Tests
 
         public class BookingService
         {
+            public Entities Entities { get; set; }
             public BookingService(Entities entities)
             {
-                
+                Entities = entities;
             }
             public void Book(BookDto bookDto)
             {
-
+                var flight = Entities.Flights.Find(bookDto.FlightId);
+                flight.Book(bookDto.PassengerEmail, bookDto.NumberOfSeats);
+                Entities.SaveChanges();
             }
 
             public IEnumerable<BookingRm> FindBooking(Guid flightId)
             {
-                return new[]
-                {
-                    new BookingRm(passengerEmail: "a@b.com", numberOfSeats: 2)
-                };
+                return Entities.Flights
+                    .Find(flightId)
+                    .BookingList
+                    .Select(booking => new BookingRm(
+                        booking.Email,
+                        booking.NumberOfSeats
+                        ));
             }
         }
 
         // Dto = Data Transfer Object: sending information between a and b.
         public class BookDto
         {
+            public Guid FlightId { get; set; }
+            public string PassengerEmail {  get; set; }
+            public int NumberOfSeats { get; set; }
+
             public BookDto(Guid flightId, string passengerEmail, int numberOfSeats)
             {
-                   
+                FlightId = flightId;
+                PassengerEmail = passengerEmail;
+                NumberOfSeats = numberOfSeats;
             }
         }
 
